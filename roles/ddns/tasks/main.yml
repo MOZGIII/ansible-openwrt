@@ -1,0 +1,15 @@
+- name: ensure LuCI Dynamic DNS app is installed
+  opkg:
+    name: luci-app-ddns
+    state: present
+    update_cache: yes
+
+- name: ensure DDNS is configured
+  include: config.yml
+  static: no
+  vars:
+    name: '{{ ddns_config_item.key }}'
+    config: '{{ ddns_config_item.value }}'
+  with_dict: '{{ ddns_config }}'
+  loop_control:
+    loop_var: ddns_config_item

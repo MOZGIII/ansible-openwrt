@@ -1,0 +1,14 @@
+- name: 'ensure DDNS service "{{ name }}" is defined'
+  uci:
+    command: set
+    key: 'ddns.{{ name }}'
+    value: service
+
+- name: 'ensure DDNS service "{{ name }}" is configured'
+  uci:
+    command: set
+    key: 'ddns.{{ name }}.{{ item.key }}'
+    value: '{{ item.value }}'
+  with_dict: '{{ config }}'
+  loop_control:
+    label: '{"{{ item.key }}": "{{ item.value }}"}'
