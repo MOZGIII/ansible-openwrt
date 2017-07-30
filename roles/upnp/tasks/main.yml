@@ -1,0 +1,5 @@
+- name: ensure LuCI UPnP app is installed
+  opkg:
+    name: luci-app-upnp
+    state: present
+    update_cache: yes
